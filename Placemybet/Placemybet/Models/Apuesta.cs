@@ -42,7 +42,27 @@ namespace Placemybet.Models
          public string MercadoOverUnder { get; set; }
 
 
+       
+
+}
+    public class ApuestaDTO
+    {
+        public ApuestaDTO(string email_user, string tipo_apuesta, float cuota, float apuesta, string fecha)
+        {
+
+            this.email_user = email_user;
+            this.tipo_apuesta = tipo_apuesta;
+            this.cuota = cuota;
+            this.apuesta = apuesta;
+            this.fecha = fecha;
+        }
 
 
+        public string email_user { get; set; }
+        public string tipo_apuesta { get; set; }
+        public float cuota { get; set; }
+        public float apuesta { get; set; }
+        public string fecha { get; set; }
     }
+}
 }

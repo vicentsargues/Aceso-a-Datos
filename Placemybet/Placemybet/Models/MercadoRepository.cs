@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Diagnostics;
 
 namespace Placemybet.Models
 {
@@ -41,6 +42,38 @@ namespace Placemybet.Models
             con.Close();
             return ap;
         }
+
+        internal List<MercadoDTO> GetMercadosDTO()
+        {
+            List<MercadoDTO> mercados = new List<MercadoDTO>();
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT * from mercados";
+            try
+            {
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    float over_under = reader.GetFloat(2);
+                    float over_cuota = reader.GetFloat(3);
+                    float under_cuota = reader.GetFloat(4);
+                    mercados.Add(new MercadoDTO(over_under, over_cuota, under_cuota));
+                }
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error Conn");
+            }
+            return mercados;
+        }
+
+
+
+
+
 
     }
 }
