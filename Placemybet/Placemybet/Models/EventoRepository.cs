@@ -73,6 +73,22 @@ namespace Placemybet.Models
             }
             return eventos;
         }
+        internal Evento Retrive2(String TIPO)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand comand = con.CreateCommand();
+            comand.CommandText = "select * from evento INNERJOIN mercados ON eventos.idEvento where 'OVER/UNDER' = "+TIPO;
+            con.Open();
+            MySqlDataReader res = comand.ExecuteReader();
+            Evento ap = null;
+            if (res.Read())
+            {
+                ap = new Evento(res.GetInt32(0), res.GetString(1), res.GetDateTime(2), res.GetString(3), res.GetString(4));
+
+            }
+            con.Close();
+            return ap;
+        }
 
     }
 }
