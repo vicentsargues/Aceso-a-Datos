@@ -51,7 +51,7 @@ namespace Placemybet.Models
             }
             catch (Exception e)
             {
-                ap = new Mercado(1, "1", 1, 1,1,1);
+                ap = new Mercado(1, "1", 1, 1, 1, 1);
                 mercados.Add(ap);
 
             }
@@ -85,13 +85,13 @@ namespace Placemybet.Models
             }
             return mercados;
         }
-        
+
         internal List<Mercado> RetriveOver(int id)
         {
             List<Mercado> mercados = new List<Mercado>();
             MySqlConnection con = Connect();
             MySqlCommand comand = con.CreateCommand();
-            comand.CommandText = "SELECT `mercado`.*, `evento`.`idEVENTO` FROM `mercado` LEFT JOIN `evento` ON `evento`.`MERCADO_OVER/UNDER` = `mercado`.`id` WHERE `mercado`.`over/under` LIKE 'over' AND `evento`.`idEVENTO` LIKE '"+id+"'";
+            comand.CommandText = "SELECT `mercado`.*, `evento`.`idEVENTO` FROM `mercado` LEFT JOIN `evento` ON `evento`.`MERCADO_OVER/UNDER` = `mercado`.`id` WHERE `mercado`.`over/under` LIKE 'over' AND `evento`.`idEVENTO` LIKE '" + id + "'";
 
 
             Mercado ap = null;
@@ -111,7 +111,7 @@ namespace Placemybet.Models
             }
             catch (Exception e)
             {
-                ap = new Mercado(1, "1", 1, 1,1,1);
+                ap = new Mercado(1, "1", 1, 1, 1, 1);
                 mercados.Add(ap);
 
             }
@@ -123,7 +123,7 @@ namespace Placemybet.Models
             List<Mercado> mercados = new List<Mercado>();
             MySqlConnection con = Connect();
             MySqlCommand comand = con.CreateCommand();
-            comand.CommandText = "SELECT `mercado`.*, `evento`.`idEVENTO` FROM `mercado` LEFT JOIN `evento` ON `evento`.`MERCADO_OVER/UNDER` = `mercado`.`id` WHERE `mercado`.`over/under` LIKE 'under' AND `evento`.`idEVENTO` LIKE '"+12+"'";
+            comand.CommandText = "SELECT `mercado`.*, `evento`.`idEVENTO` FROM `mercado` LEFT JOIN `evento` ON `evento`.`MERCADO_OVER/UNDER` = `mercado`.`id` WHERE `mercado`.`over/under` LIKE 'under' AND `evento`.`idEVENTO` LIKE '" + 12 + "'";
 
 
             Mercado ap = null;
@@ -178,7 +178,7 @@ namespace Placemybet.Models
 
                     Dinero_under = reader.GetDouble(4);
 
-                     Dinero_over = reader.GetDouble(2);
+                    Dinero_over = reader.GetDouble(2);
 
                 }
                 con.Close();
@@ -196,7 +196,7 @@ namespace Placemybet.Models
             Debug.WriteLine(result2); Debug.WriteLine(result3); Debug.WriteLine(result4);
 
 
-            comand.CommandText = "UPDATE `mercado` SET `CuotaOver` = '"+result3+ "' , `CuotaUnder` = '"+result4+ "' WHERE `mercado`.`Id` = "+id;
+            comand.CommandText = "UPDATE `mercado` SET `CuotaOver` = '" + result3 + "' , `CuotaUnder` = '" + result4 + "' WHERE `mercado`.`Id` = " + id;
             try
             {
                 con.Open();
@@ -209,8 +209,51 @@ namespace Placemybet.Models
             }
 
         }
+        /***  EJERCICIO PARA EXAMEN (EJERCIOCIO 2) ***/
 
 
+        internal void AutoInsert(string id, string tipo)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand comand = con.CreateCommand();
+            Double result1 = 0;
+            Double result2 = 0;
+            Double result3 = 0;
+            Double result4 = 0;
+            Double Dinero_under = 100;
+            Double Dinero_over = 100;
+
+            Debug.WriteLine(Dinero_under); Debug.WriteLine(Dinero_over);
+            result1 = Dinero_over / (Dinero_over + Dinero_under);
+            Debug.WriteLine(result1);
+            result2 = Dinero_under / (Dinero_under + Dinero_over);
+            result3 = (1 / result1) * 0.95;
+            result4 = (1 / result2) * 0.95;
+            Debug.WriteLine(result2); Debug.WriteLine(result3); Debug.WriteLine(result4);
+
+
+            comand.CommandText = "INSERT INTO `mercado` (`id`, `CuotaOver`, `DineroOver`, `CuotaUnder`, `DineroUnder`, `over/under`) VALUES ('"+id+"', '"+ result3 + "', '100', '"+ result4 + "', '100', '"+tipo+"')";
+            try
+            {
+                con.Open();
+                comand.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error Insert merc");
+            }
+
+        }
+    
+
+
+
+
+
+
+
+        /***  EJERCICIO PARA EXAMEN (EJERCIOCIO 2) ***/
 
 
     }

@@ -253,6 +253,7 @@ namespace Placemybet.Models
             catch (Exception e)
             {
 
+                Debug.WriteLine("No hay equipos con ese nombre");
                 Console.WriteLine("No hay equipos con ese nombre");
             }
 

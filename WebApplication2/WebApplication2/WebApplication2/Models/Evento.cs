@@ -43,4 +43,33 @@ namespace Placemybet.Models
         public string Equipo_visitante { get; set; }
         public string Fecha { get; set; }
     }
+    /***  EJERCICIO PARA EXAMEN (EJERCIOCIO 2) ***/
+
+    public class EventoExamen
+    {
+        public EventoExamen(int idEvento, string eqLoc, DateTime fecha, string eqVis, string Mercadoo, string TMercado)
+        {
+            IdEvento = idEvento;
+            EqLoc = eqLoc;
+            Fecha = fecha;
+            EqVis = eqVis;
+            Mercado = Mercadoo;
+            TipoMercado = TMercado;
+        }
+
+        public int IdEvento { get; set; }
+        public string EqLoc { get; set; }
+        public DateTime Fecha { get; set; }
+        public string EqVis { get; set; }
+        public string Mercado { get; set; }
+        public string TipoMercado { get; set; }
+
+    }
+
+
+
+    /***  EJERCICIO PARA EXAMEN (EJERCIOCIO 2) ***/
+
+
+
 }

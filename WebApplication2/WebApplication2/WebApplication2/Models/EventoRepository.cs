@@ -84,6 +84,30 @@ namespace Placemybet.Models
             }
             return eventos;
         }
+        /***  EJERCICIO PARA EXAMEN (EJERCIOCIO 2) ***/
+        internal void Save(EventoExamen a)
+        {
+        
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = " INSERT INTO `evento` (`idEVENTO`, `EqLocal`, `Fecha`, `EqVisitante`, `MERCADO_OVER/UNDER`) VALUES('"+a.IdEvento+"', '"+a.EqLoc+"', '"+a.Fecha+"', '"+a.EqVis+"', '"+a.Mercado+"')";
+
+            try
+            {
+                con.Open();
+                command.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error Insert Apuesta");
+            }
+        }
+        /***  EJERCICIO PARA EXAMEN (EJERCIOCIO 2) ***/
+
+
+
+
 
     }
 }
